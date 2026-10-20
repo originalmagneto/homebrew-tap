@@ -4,7 +4,7 @@ cask "chevron7" do
 
   url "https://github.com/originalmagneto/chevron7/releases/download/native-v#{version}/Chevron7.dmg"
   name "Chevron7"
-  desc "Electronic document signing for macOS"
+  desc "Electronic document signing"
   homepage "https://github.com/originalmagneto/chevron7"
 
   livecheck do
