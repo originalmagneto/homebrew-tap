@@ -8,6 +8,8 @@ brew install --cask originalmagneto/tap/chevron7
 
 The cask installs `Chevron7.app` from the project's GitHub release DMG. It does not install smart-card drivers. Install any drivers required by your signing card separately.
 
+Homebrew checks the Apple Silicon and macOS 27 minimum before installation. If it does not recognize `golden_gate` (macOS 27), run `brew update` first.
+
 ## Updates
 
 Chevron7 updates itself through Sparkle. To explicitly update it through Homebrew instead:
