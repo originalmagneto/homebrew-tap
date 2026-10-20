@@ -15,7 +15,12 @@ cask "chevron7" do
 
   auto_updates true
   depends_on arch: :arm64
-  depends_on macos: ">= 27"
+  depends_on macos: :any
 
   app "Chevron7.app"
+
+  # shortcut: Homebrew has no macOS 27 symbol yet; use depends_on when it does.
+  preflight do
+    raise "Chevron7 requires macOS 27 or later." if MacOS.version < "27"
+  end
 end
