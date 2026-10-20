@@ -20,7 +20,12 @@ cask "chevron7" do
   app "Chevron7.app"
 
   # shortcut: Homebrew has no macOS 27 symbol yet; use depends_on when it does.
-  preflight do
-    raise "Chevron7 requires macOS 27 or later." if MacOS.version < "27"
+  preflight_steps do
+    run "/bin/sh", args: ["-c", <<~'SH']
+      version=$(/usr/bin/sw_vers -productVersion) && [ "${version%%.*}" -ge 27 ] || {
+        echo "Chevron7 requires macOS 27 or later." >&2
+        exit 1
+      }
+    SH
   end
 end
