@@ -1,0 +1,39 @@
+name: Update Chevron7 cask
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-chevron7-cask
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - name: Check synchronization logic
+        run: python3 -m unittest discover -s .github/scripts -p 'test_*.py'
+      - name: Synchronize the latest stable release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/update_cask.py
+      - name: Commit the cask update
+        run: |
+          git add -- Casks/chevron7.rb
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Update Chevron7 cask to latest stable release' -- Casks/chevron7.rb
+          # A concurrent branch change fails safely rather than overwriting it.
+          git push origin "HEAD:${{ github.event.repository.default_branch }}"
