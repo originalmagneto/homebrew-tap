@@ -1,6 +1,6 @@
 cask "chevron7" do
-  version "1.15.1"
-  sha256 "1e29a88912765658bb069e970a5704ca37f273a24539f54789ac12be02991a44"
+  version "1.16.0"
+  sha256 "dfc5d2d97ac31d9e4411643bcd6f0a5ffe50391308de25b977004b4d0fc0ae29"
 
   url "https://github.com/originalmagneto/chevron7/releases/download/native-v#{version}/Chevron7.dmg"
   name "Chevron7"
